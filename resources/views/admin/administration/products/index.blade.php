@@ -20,17 +20,18 @@
         <!-- Basic -->
         <div class="block">
             <div class="block-content block-content-full">
+                @if (count($products) > 0)
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-vcenter ajax_off">
                         <thead>
                             <tr>
                                 <th>Imagem</th>
-                                <th style="width: 15%;">SKU</th>
-                                <th style="width: 15%;">Título</th>
-                                <th style="width: 15%;">Preço</th>
-                                <th style="width: 15%;">Quantidade</th>
-                                <th style="width: 15%;">Status</th>
-                                <th style="width: 15%;">Criado via</th>
+                                <th class="text-center" style="width: 15%;">SKU</th>
+                                <th class="text-center" style="width: 15%;">Título</th>
+                                <th class="text-center" style="width: 15%;">Preço</th>
+                                <th class="text-center" style="width: 15%;">Quantidade</th>
+                                <th class="text-center" style="width: 15%;">Status</th>
+                                <th class="text-center" style="width: 15%;">Criado via</th>
                                 <th class="text-center" style="width: 100px;">Ações</th>
                             </tr>
                         </thead>
@@ -38,18 +39,20 @@
                             @foreach ($products as $product)
                                 <tr id="{{ $product->id }}">
                                     <td class="text-center">
-                                        <img class="img-avatar img-avatar48"
-                                            src="{{ asset('media/avatars/avatar2.jpg') }}" alt="">
+                                        @if ($product->image()->first()->path)
+                                            <img src="{{ url("storage/{$product->image()->first()->path}") }}" alt="{{ $product->title }}" width="100">
+                                        @else
+                                            <i class="fa fa-image fa-2x"></i>
+                                        @endif
                                     </td>
-                                    <td class="font-w600 font-size-sm">
+                                    <td class="text-center font-size-sm">{{ $product->sku }}</td>
+                                    <td class="text-center font-w600 font-size-sm">
                                         <a href="{{ route('admin.products.edit', $product->id) }}">{{ $product->title }}</a>
                                     </td>
-                                    <td class="font-size-sm">{{ $product->price }}</td>
-                                    <td class="font-size-sm">20</td>
-                                    <td>
-                                        <span
-                                            class="badge badge-{{ $product->added_via == 'system' ? 'success' : 'warning' }}">{{ $product->added_via == 'system' ? 'Sistema' : 'API' }}</span>
-                                    </td>
+                                    <td class="text-center font-size-sm">R$ {{ $product->price }}</td>
+                                    <td class="text-center font-size-sm">{{ $product->stock }}</td>
+                                    <td class="text-center font-size-sm"><span class="badge badge-{{ $product->active == 'Ativo' ? 'success' : 'danger' }}">{{ $product->active }}</span></td>
+                                    <td class="text-center">{{ $product->added_via }}</td>
                                     <td class="text-center">
                                         <div class="btn-group">
                                             <a href="{{ route('admin.products.edit', $product->id) }}">
@@ -74,6 +77,9 @@
                     </table>
                     {{ $products->links() }}
                 </div>
+                @else
+                    <div class="alert alert-info py-2 mb-0 text-center">Produto não cadastrado!</div>
+                @endif
             </div>
         </div>
         <!-- END Basic -->
@@ -102,19 +108,13 @@
                         type: "POST",
                         url: routeUrl,
                         data: {
-                            uuid: id,
+                            id: id,
                             "_method": "DELETE",
                             "_token": "{{ csrf_token() }}"
                         },
                         success: function(data) {
                             if (data.success) {
-                                Swal.fire({
-                                    title: 'Deletado com sucesso!',
-                                    icon: 'success',
-                                    confirmButtonColor: '#5c80d1',
-                                    confirmButtonText: 'Ok',
-                                });
-                                $("#" + id + "").remove();
+                                window.location.href = data.redirect;
                             }
                         },
                         error: function(data) {

@@ -26035,7 +26035,7 @@ function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\docker\dashboard\resources\js\oneui\app.js */"./resources/js/oneui/app.js");
+module.exports = __webpack_require__(/*! C:\docker\appmax_teste\resources\js\oneui\app.js */"./resources/js/oneui/app.js");
 
 
 /***/ })

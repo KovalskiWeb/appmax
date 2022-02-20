@@ -4,6 +4,10 @@ Route::get('/', function () {
     return redirect()->route('admin.login');
 });
 
+Route::get('/admin/teste', function() {
+    return storage_path();
+});
+
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
 
     /** Formulário de Login */

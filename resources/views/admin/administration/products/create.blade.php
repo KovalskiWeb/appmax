@@ -41,11 +41,11 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="price">Preço</label>
-                                <input type="text" class="form-control" id="price" name="price" placeholder="Preço" value="{{ old('price') }}">
+                                <input type="text" class="form-control mask-money" id="price" name="price" placeholder="Preço" value="{{ old('price') }}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="stock">Estoque</label>
-                                <input type="text" class="form-control" id="stock" name="stock" placeholder="Estoque mínimo" value="{{ old('stock') }}">
+                                <input type="text" class="form-control" id="stock" name="stock" placeholder="Estoque" value="{{ old('stock') }}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="active">Status?</label>
@@ -56,7 +56,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="image">Imagem</label>
-                                <input type="file" name="image[]" id="image" class="form-control" multiple>
+                                <input type="file" name="image" id="image" class="form-control">
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="description">Descrição</label>
@@ -76,5 +76,9 @@
 @endsection
 
 @section('js_after')
+    <script src="{{ asset('backend/assets/js/jquery.mask.js') }}"></script>
     <script src="{{ asset('js/plugins/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
+    <script>
+        $(".mask-money").mask('R$ 000.000.000.000.000,00', {reverse: true, placeholder: "R$ 0,00"});
+    </script>
 @endsection

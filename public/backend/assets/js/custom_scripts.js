@@ -85,7 +85,11 @@ $(function() {
                 }
 
                 if (response.request && response.status == 'create') {
-                    window.location.href = response.redirect;
+                    if (response.message) {
+                        One.helpers('notify', { type: 'danger', icon: 'fa fa-check mr-1', message: response.message });
+                    } else {
+                        window.location.href = response.redirect;
+                    }
                 }
 
                 //image by fsphp mce upload
@@ -98,14 +102,18 @@ $(function() {
                 // ajaxMessage("<div class='message error'>" + response.responseJSON['errors']['title'][0] + "</div>", 5);
                 // One.helpers('notify', { type: 'danger', icon: 'fa fa-times mr-1', message: response.responseJSON.errors[0] });
 
+                console.log(response);
+
                 if (response.statusText) {
-                    One.helpers('notify', { type: 'danger', icon: 'fa fa-times mr-1', message: response.statusText });
-                } else {
-                    $.each(response.responseJSON.errors, function(key, value) {
-                        // $('#err').append(key + ": " + value + "<br>");
-                        // console.log(value[0]);
-                        One.helpers('notify', { type: 'danger', icon: 'fa fa-times mr-1', message: value[0] });
-                    });
+                    if (response.responseJSON.errors) {
+                        $.each(response.responseJSON.errors, function(key, value) {
+                            // $('#err').append(key + ": " + value + "<br>");
+                            // console.log(value[0]);
+                            One.helpers('notify', { type: 'danger', icon: 'fa fa-times mr-1', message: value[0] });
+                        });
+                    } else {
+                        One.helpers('notify', { type: 'danger', icon: 'fa fa-times mr-1', message: 'Erro interno! Por favor, entre em contato com o suporte do sistema!' });
+                    }
                 }
             }
         });

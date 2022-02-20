@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('sku')->unique();
             $table->string('title');
-            $table->double('price', 10,2);
+            $table->decimal('price', 10, 2)->nullable();
             $table->integer('stock');
             $table->string('added_via');
             $table->string('removed_via')->nullable();
@@ -28,7 +28,7 @@ class CreateProductsTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('image_product', function (Blueprint $table) {
+        Schema::create('image_products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');
 
@@ -37,22 +37,8 @@ class CreateProductsTable extends Migration
             ->on('products')
             ->onDelete('cascade');
 
+            $table->string('directory');
             $table->string('path');
-            $table->timestamps();
-        });
-
-        Schema::create('stocks', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('product_id');
-
-            $table->foreign('product_id')
-            ->references('id')
-            ->on('products')
-            ->onDelete('cascade');
-
-            $table->enum('type', ['Entrada', 'Saída']);
-            $table->integer('amount');
-            $table->text('note')->nullable();
             $table->timestamps();
         });
     }
@@ -65,7 +51,6 @@ class CreateProductsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('products');
-        Schema::dropIfExists('image_product');
-        Schema::dropIfExists('stocks');
+        Schema::dropIfExists('image_products');
     }
 }

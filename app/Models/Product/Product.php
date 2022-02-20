@@ -15,7 +15,6 @@ class Product extends Model
         'price',
         'stock',
         'active',
-        'image',
         'description',
         'added_via',
         'removed_via',
@@ -31,11 +30,36 @@ class Product extends Model
         return $this->hasOne(ImageProduct::class);
     }
 
-    /**
-     * Relationship with stock
-     */
-    public function stock()
+    public function getAddedViaAttribute($value)
     {
-        return $this->hasMany(Stock::class);
+        return ($value == 'system' ? 'Sistema' : 'API');
+    }
+
+    public function getActiveAttribute($value)
+    {
+        return ($value == 1 ? 'Ativo' : 'Inativo');
+    }
+
+    public function setPriceAttribute($value)
+    {
+        $this->attributes['price'] = (!empty($value) ? floatval($this->convertStringToDouble($value)) : null);
+    }
+
+    public function getPriceAttribute($value)
+    {
+        if (empty($value)) {
+            return null;
+        }
+
+        return number_format($value, 2, ',', '.');
+    }
+
+    private function convertStringToDouble($param)
+    {
+        if(empty($param)){
+            return null;
+        }
+
+        return str_replace(',', '.', str_replace('.', '', $param));
     }
 }

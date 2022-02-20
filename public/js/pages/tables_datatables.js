@@ -194,7 +194,7 @@ jQuery(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\docker\dashboard\resources\js\pages\tables_datatables.js */"./resources/js/pages/tables_datatables.js");
+module.exports = __webpack_require__(/*! C:\docker\appmax_teste\resources\js\pages\tables_datatables.js */"./resources/js/pages/tables_datatables.js");
 
 
 /***/ })
