@@ -1,0 +1,120 @@
+/*//////////////////////////////////////////////////////////////////
+[ Ajax Response/ Message ]*/
+
+.message {
+    font-family: "Source Sans Pro", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    border-radius: 4px;
+    width: 100%;
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    background: #555555;
+    color: #ffffff;
+    font-size: 0.875em;
+    transition-duration: 0.3s;
+    margin-bottom: 20px;
+    border: 1px solid #333333;
+}
+
+.message p {
+    flex-basis: 100%;
+    width: 100%;
+    display: block;
+}
+
+.message-green {
+    color: #ffffff;
+    background-color: #36BA9B;
+    border-color: #2d9a81;
+}
+
+.message-blue {
+    color: #ffffff;
+    background-color: #39AED9;
+    border-color: #2699c4;
+}
+
+.message-yellow {
+    color: #ffffff;
+    background-color: #F5B946;
+    border-color: #f3aa1f;
+}
+
+.message-red {
+    color: #ffffff;
+    background-color: #D94352;
+    border-color: #ca2939;
+}
+
+.message-orange {
+    color: #ffffff;
+    background-color: #F4645F;
+    border-color: #f13f39;
+}
+
+.ajax_response {
+    z-index: 9999;
+    position: fixed;
+    padding: 20px 20px 0 0;
+    top: 0;
+    right: 0;
+    width: 300px;
+    max-width: 100%;
+}
+
+.ajax_response .message {
+    background: #333333;
+    font-size: 0.8em;
+    font-weight: 400;
+    border-radius: 4px;
+    color: #ffffff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 15px 15px 20px 15px;
+    margin-bottom: 15px;
+    position: relative;
+    cursor: pointer;
+}
+
+.ajax_response .message:before {
+    flex-basis: 0%;
+    margin: -5px 15px 0 0 !important;
+    font-size: 2.4em;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.ajax_response .message.success {
+    background: #36BA9B;
+}
+
+.ajax_response .message.info {
+    background: #39AED9;
+}
+
+.ajax_response .message.warning {
+    background: #F5B946;
+}
+
+.ajax_response .message.error {
+    background: #D94352;
+}
+
+.ajax_response .message_time {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 4%;
+    height: 5px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 30em) {
+    .ajax_response {
+        width: 100%;
+        padding: 20px 20px 0 20px;
+    }
+}
