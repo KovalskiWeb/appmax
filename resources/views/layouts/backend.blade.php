@@ -125,11 +125,6 @@
                                         <span class="nav-main-link-name">Produtos</span>
                                     </a>
                                 </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('admin/administration-products') ? ' active' : '' }}" href="{{ route('admin.daily.report') }}">
-                                        <span class="nav-main-link-name">Relatório Diário</span>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
                     </ul>

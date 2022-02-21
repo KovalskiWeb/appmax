@@ -6,9 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\ProductRepository;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
+    protected $productRepository;
+
+    public function __construct(ProductRepository $productRepository)
+    {
+        $this->productRepository = $productRepository;
+    }
+
     public function showLoginForm()
     {
         if(Auth::check() === true) {
@@ -20,7 +29,14 @@ class AuthController extends Controller
 
     public function home()
     {
-        return view('admin.dashboard');
+        $currentDate = date('d/m/Y', strtotime(Carbon::now()->toDateString()));
+        $productCreatedAt = $this->productRepository->getProductDay('created_at');
+        $productDeletedAt = $this->productRepository->getProductDay('deleted_at');
+        $productCreateInSystem = $this->productRepository->getProductCreateInDevice('system');
+        $productCreateInApi = $this->productRepository->getProductCreateInDevice('Api');
+        $productLowStock = $this->productRepository->getLowStock();
+
+        return view('admin.administration.reports.index', compact('currentDate', 'productCreatedAt', 'productDeletedAt', 'productCreateInSystem', 'productCreateInApi', 'productLowStock'));
     }
 
     public function login(Request $request)
