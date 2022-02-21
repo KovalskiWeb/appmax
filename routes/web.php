@@ -20,6 +20,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::get('home', 'AuthController@home')->name('home');
 
         /** Dashboard Administração -> Produtos */
+        Route::any('products/search', 'ProductController@search')->name('products.search');
         Route::resource('products', 'ProductController');
 
     });

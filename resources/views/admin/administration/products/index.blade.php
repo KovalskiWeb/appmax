@@ -21,6 +21,22 @@
         <div class="block">
             <div class="block-content block-content-full">
                 @if (count($products) > 0)
+
+                <form class="d-inline-block float-right mb-5 ajax_off" action="{{ route('admin.products.search') }}" method="POST">
+                    @csrf
+
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control form-control-alt" placeholder="Procurar.." id="page-header-search-input2" name="filter" value="{{ $filters['filter'] ?? '' }}">
+                        <div class="input-group-append">
+                            <button type="submit" class="border-0 p-0">
+                                <span class="input-group-text bg-body border-0">
+                                    <i class="si si-magnifier"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-vcenter ajax_off">
                         <thead>
@@ -76,7 +92,11 @@
                         </tbody>
                     </table>
                     <div class="float-right">
-                        {{ $products->links() }}
+                        @if (isset($filters))
+                            {!! $products->appends($filters)->links() !!}
+                        @else
+                            {!! $products->links() !!}
+                        @endif
                     </div>
                 </div>
                 @else

@@ -172,4 +172,27 @@ class ProductController extends Controller
         $this->json['redirect'] = route('admin.products.index');
         return response()->json($this->json);
     }
+
+    /**
+     * Search results
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $filters = $request->only('filter');
+
+        $products = $this->repository
+            ->where(function ($query) use ($request) {
+                if($request->filter) {
+                    $query->orWhere('description', 'LIKE', "%{$request->filter}%");
+                    $query->orWhere('title', 'LIKE', "%{$request->filter}%");
+                }
+            })
+            ->latest()
+            ->paginate();
+
+        return view('admin.administration.products.index', compact('products', 'filters'));
+    }
 }
