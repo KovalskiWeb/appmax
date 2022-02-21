@@ -39,10 +39,10 @@
                             @foreach ($products as $product)
                                 <tr id="{{ $product->id }}">
                                     <td class="text-center">
-                                        @if ($product->image()->first()->path)
-                                            <img src="{{ url("storage/{$product->image()->first()->path}") }}" alt="{{ $product->title }}" width="100">
+                                        @if (!empty($product->image()->first()->path))
+                                            <img src="{{ url("storage/{$product->image()->first()->path}") }}" alt="{{ $product->title }}" height="100">
                                         @else
-                                            <i class="fa fa-image fa-2x"></i>
+                                            <img src="{{ asset('media/various/img-off.png') }}" alt="{{ $product->title }}" height="100">
                                         @endif
                                     </td>
                                     <td class="text-center font-size-sm">{{ $product->sku }}</td>
@@ -75,7 +75,9 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $products->links() }}
+                    <div class="float-right">
+                        {{ $products->links() }}
+                    </div>
                 </div>
                 @else
                     <div class="alert alert-info py-2 mb-0 text-center">Produto não cadastrado!</div>

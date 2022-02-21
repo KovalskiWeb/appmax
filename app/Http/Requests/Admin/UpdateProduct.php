@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProduct extends FormRequest
+class UpdateProduct extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,14 +23,20 @@ class StoreProduct extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'title' => 'required',
             'stock' => 'required',
             'sku' => 'required',
-            'price' => 'required',
-            'image' => 'nullable|image',
-            'description' => 'required',
+            'price' => "required",
+            'image' => 'image',
+            'description' => ['required'],
         ];
+
+        if ($this->method() == 'PUT') {
+            $rules['image'] = ['nullable', 'image'];
+        }
+
+        return $rules;
     }
 
     /**
@@ -43,7 +49,7 @@ class StoreProduct extends FormRequest
         return [
             'title.required' => 'Campo título é obrigatório!',
             'stock.required' => 'Campo estoque é obrigatório!',
-            'sku.required' => 'Campo SKU é obrigatório!',
+            'sku.required' => 'Campo sku é obrigatório!',
             'price.required' => 'Campo preço é obrigatório!',
             'description.required' => 'Campo descrição é obrigatório!',
         ];

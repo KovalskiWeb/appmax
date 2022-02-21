@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreProduct;
+use App\Http\Requests\Admin\UpdateProduct;
 use App\Models\Product\ImageProduct;
 use App\Models\Product\Product;
 use Illuminate\Http\Request;
@@ -96,19 +97,54 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        if(!$product = $this->repository::find($id)) {
+            return redirect()->back();
+        }
 
+        return view('admin.administration.products.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\Admin\UpdateProduct  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProduct $request, $id)
     {
-        //
+        if(!$product = $this->repository::find($id)) {
+            return redirect()->back();
+        }
+
+        $data = $request->all();
+
+        if($request->hasFile('image') && $request->image->isValid()) {
+            if($imageProduct = ImageProduct::where('product_id', $request->id)->first()) {
+                if (Storage::exists($imageProduct->path)) {
+                    Storage::delete($imageProduct->path);
+                }
+
+                $imageProduct->path = $request->image->store("public/products/{$request->id}");
+                $imageProduct->directory = "products/{$id}";
+                $imageProduct->update();
+            } else {
+                $imageProduct = new ImageProduct();
+                $imageProduct->product_id = $request->id;
+                $imageProduct->directory = "products/{$request->id}";
+                $imageProduct->path = $request->image->store("public/products/{$request->id}");
+                $imageProduct->save();
+            }
+        }
+
+        $product->update($data);
+
+        $this->json['request'] = $request;
+        $this->json['status'] = "update";
+        $this->json['image_update'] = (!empty($imageProduct->path) ? url('storage/' . $imageProduct->path) : false);
+
+
+        return response()->json($this->json);
     }
 
     /**
