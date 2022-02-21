@@ -7,9 +7,8 @@ Route::group([
     'middleware' => ['auth:sanctum']
 ], function () {
     Route::get('/produtos', 'Api\ProductApiController@index');
+    Route::post('/adicionar-produtos', 'Api\ProductApiController@create');
+    Route::put('/baixar-produtos', 'Api\ProductApiController@update');
     Route::get('/auth/me', 'Api\Auth\AuthApiController@me');
 });
-
-Route::post('/adicionar-produtos', 'Api\ProductApiController@create');
-Route::put('/baixar-produtos', 'Api\ProductApiController@update');
 
