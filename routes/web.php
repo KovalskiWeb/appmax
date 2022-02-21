@@ -1,5 +1,15 @@
 <?php
 
+// use App\Models\User;
+
+// Route::get('testeagora', function () {
+//     $user = User::first();
+
+//     $token = $user->createToken('token-teste');
+
+//     dd($token->plainTextToken);
+// });
+
 Route::get('/', function () {
     return redirect()->route('admin.login');
 });

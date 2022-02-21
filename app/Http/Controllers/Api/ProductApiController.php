@@ -29,9 +29,8 @@ class ProductApiController extends Controller
             return ProductResource::collection($products);
         } catch (\Exception $e) {
             return response()->json([
-                'code' => 500,
                 'message' => 'Erro ao listar os produtos!'
-            ]);
+            ], 500);
         }
     }
 
@@ -54,13 +53,12 @@ class ProductApiController extends Controller
 
             return response()->json([
                 'message' => 'Solicitação de baixa de produto realizada com sucesso!'
-            ]);
+            ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
-                'code' => 500,
                 'message' => 'Erro ao dar baixa no estoque!'
-            ]);
+            ], 500);
         }
     }
 
@@ -88,13 +86,12 @@ class ProductApiController extends Controller
 
             return response()->json([
                 'message' => 'Cadastro de produto realizado com sucesso!'
-            ]);
+            ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
-                'code' => 500,
                 'message' => 'Erro ao cadastrar produto!'
-            ]);
+            ], 500);
         }
     }
 }
