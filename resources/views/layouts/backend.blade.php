@@ -125,6 +125,11 @@
                                         <span class="nav-main-link-name">Produtos</span>
                                     </a>
                                 </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('admin/administration-products') ? ' active' : '' }}" href="{{ route('admin.daily.report') }}">
+                                        <span class="nav-main-link-name">Relatório Diário</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -157,31 +162,6 @@
 
                     <!-- Right Section -->
                     <div class="d-flex align-items-center">
-                        <!-- Notifications Dropdown -->
-                        <div class="dropdown d-inline-block ml-2">
-                            <button type="button" class="btn btn-sm btn-dual" id="page-header-notifications-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="si si-bell"></i>
-                                <span class="badge badge-primary badge-pill">6</span>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0 border-0 font-size-sm" aria-labelledby="page-header-notifications-dropdown">
-                                <div class="p-2 bg-primary text-center">
-                                    <h5 class="dropdown-header text-uppercase text-white">Notificações</h5>
-                                </div>
-                                <ul class="nav-items mb-0">
-                                    <li>
-                                        <a class="text-dark flex-row justify-content-center align-items-center media py-2" href="javascript:void(0)">
-                                            <div class="mr-2 ml-2 badge badge-success badge-pill">
-                                                100
-                                            </div>
-                                            <div class="media-body pr-2">
-                                                <div class="font-w600">Produto adicionado ao estoque</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- END Notifications Dropdown -->
                         <!-- User Dropdown -->
                         <div class="dropdown d-inline-block ml-2">
                             <button type="button" class="btn btn-sm btn-dual" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -190,13 +170,7 @@
                                 <i class="fa fa-fw fa-angle-down d-none d-sm-inline-block"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right p-0 border-0 font-size-sm" aria-labelledby="page-header-user-dropdown">
-                                <div class="p-2">
-                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                                        <span>Configuração</span>
-                                        <i class="si si-settings"></i>
-                                    </a>
-                                    <div role="separator" class="dropdown-divider"></div>
-                                    <h5 class="dropdown-header text-uppercase">Ações</h5>
+                                <div class="p-1">
                                     <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{ route('admin.logout') }}">
                                         <span>Sair</span>
                                         <i class="si si-logout ml-1"></i>

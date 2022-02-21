@@ -48,6 +48,7 @@ class ProductApiController extends Controller
             }
 
             $data['stock'] = $product->stock - $request->decrement_stock;
+            $data['removed_via'] = 'Api';
 
             $product->update($data);
 

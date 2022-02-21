@@ -33,6 +33,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::any('products/search', 'ProductController@search')->name('products.search');
         Route::resource('products', 'ProductController');
 
+        /** Dashboard Administração -> Relatório Diário */
+        Route::get('relatorio-diario', 'DailyReportController@index')->name('daily.report');
+
     });
 
     /** Logout */
