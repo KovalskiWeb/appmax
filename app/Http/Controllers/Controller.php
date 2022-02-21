@@ -7,18 +7,16 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Support\Message;
-use App\Support\Seo;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected $message, $seo, $json;
+    protected $message, $json;
 
     public function __construct()
     {
         $this->message = new Message();
-        $this->seo = new Seo();
         $this->json = [];
     }
 }
