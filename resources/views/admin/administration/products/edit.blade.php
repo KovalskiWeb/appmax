@@ -60,8 +60,8 @@
                             <div class="form-group col-md-6">
                                 <label for="active">Status?</label>
                                 <select name="active" id="active" class="form-control">
-                                    <option {{ $product->active = 'Ativo' ? 'selected' : '' }} value="1">Ativo</option>
-                                    <option {{ $product->active = 'Inativo' ? 'selected' : '' }} value="0">Inativo</option>
+                                    <option {{ $product->active == 'Ativo' ? 'selected' : '' }} value="1">Ativo</option>
+                                    <option {{ $product->active == 'Inativo' ? 'selected' : '' }} value="0">Inativo</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
